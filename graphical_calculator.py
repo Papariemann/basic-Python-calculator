@@ -9,17 +9,23 @@ def add_to_calculation(symbol):
     text_result.delete(1.0, "end")
     text_result.insert(1.0, calculation)
 
+
 def evaluate_calculation():
     global calculation
     try:
-        
-        result = str(eval(calculation))
+        result = eval(calculation)
+        if isinstance(result, float) and result.is_integer():
+            result = str(int(result))  # Convert float to integer if it's a whole number
+        else:
+            result = str(result)  # Otherwise keep it as it is
+
         calculation = ""
         text_result.delete(1.0, "end")
-        text_result.insert(1.0, result) 
+        text_result.insert(1.0, result)
     except:
         clear_field()
         text_result.insert(1.0, "Error")
+
 
 
 def clear_field():
